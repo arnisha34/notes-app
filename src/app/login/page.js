@@ -14,7 +14,7 @@ export default function Auth () {
   const passwordError = password && password.length < 8;
   const isDisabled = !email || emailError || !password || passwordError;
 
-    const handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     router.push('/');
   }

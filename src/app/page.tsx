@@ -4,7 +4,7 @@ import { SideNav } from './components/sideNav'
 import { Note } from './components/note'
 import { Settings } from './components/settings'
 import { Modal } from './components/modal'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Context } from "@/context/context"
 
 export default function Home() {
@@ -14,11 +14,15 @@ export default function Home() {
   const [activeModal, setActiveModal] = useState(null)
   const [activeView, setActiveView] = useState("home")
   const [activeBtn, setActiveBtn] = useState("")
-  const [isChecked, setIsChecked] = useState("")
-  
+  const [fontTheme, setFontTheme] = useState("font-sans")
+  const [colorTheme, setColorTheme] = useState("light")
+  const [systemPrefersDark, setSystemPrefersDark] = useState(false);
+
+  const themeClass = colorTheme === 'dark' || (colorTheme === 'system' && systemPrefersDark) ? 'dark' : '';
+
   return (
-    <Context.Provider value={{activeBtn, setActiveBtn, activeModal, setActiveModal, activeView, setActiveView, isChecked, setIsChecked, isOpen, setIsOpen, newNote, setNewNote}}>
-      <div className={`${isChecked === 'dark'? 'dark': isChecked === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches? 'dark': ''} bg-white dark:bg-slate-950 dark:text-white flex w-full h-full text-lg`}>
+    <Context.Provider value={{activeBtn, setActiveBtn, activeModal, setActiveModal, activeView, setActiveView, colorTheme, setColorTheme, fontTheme, setFontTheme, isOpen, setIsOpen, newNote, setNewNote}}>
+      <div className={`${themeClass} ${fontTheme} bg-white dark:bg-slate-950 dark:text-white flex w-full h-full text-lg`}>
         <SideNav />
         <div className='flex flex-col flex-1'>
           <Navbar />

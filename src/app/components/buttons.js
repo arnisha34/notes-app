@@ -32,15 +32,15 @@ export const SettingsButtons = () => {
 
   return (
     <section className="border-r-1 border-gray-400 flex flex-col gap-5 p-5 w-xs">
-          <button type="button" className={`${ctx.activeBtn==="colorTheme"?"bg-neutral-100 dark:bg-slate-800":""} cursor-pointer flex items-center gap-2 p-3 relative rounded-lg hover:bg-neutral-100 dark:hover:bg-slate-800 group`} onClick={() => ctx.setActiveBtn("colorTheme")}><SunIcon className={`${ctx.activeBtn==="colorTheme"?"text-blue-500":""} group-hover:text-blue-500 stroke-2 w-6`}/><span>Color Theme</span> <ChevronRightIcon className={`${ctx.activeBtn==="colorTheme"?"absolute top-[50%] right-0 translate-[-50%] stroke-3 w-4":"hidden"}`} /></button>
-          
-          <button type="button" className={`${ctx.activeBtn==="fontTheme"?"bg-neutral-100 dark:bg-slate-800":""} cursor-pointer flex items-center gap-2 p-3 relative rounded-lg hover:bg-neutral-100 dark:hover:bg-slate-800 group`} onClick={() => ctx.setActiveBtn("fontTheme")}><TbTextSize size={25} className={`${ctx.activeBtn==="fontTheme"?"text-blue-500":""} group-hover:text-blue-500 stroke-2 w-6`}/><span>Font Theme</span> <ChevronRightIcon className={`${ctx.activeBtn==="fontTheme"?"absolute top-[50%] right-0 translate-[-50%] stroke-3 w-4":"hidden"}`} /></button>
+      <button type="button" className={`${ctx.activeBtn==="colorTheme"?"bg-neutral-100 dark:bg-slate-800":""} cursor-pointer flex items-center gap-2 p-3 relative rounded-lg hover:bg-neutral-100 dark:hover:bg-slate-800 group`} onClick={() => ctx.setActiveBtn("colorTheme")}><SunIcon className={`${ctx.activeBtn==="colorTheme"?"text-blue-500":""} group-hover:text-blue-500 stroke-2 w-6`}/><span>Color Theme</span> <ChevronRightIcon className={`${ctx.activeBtn==="colorTheme"?"absolute top-[50%] right-0 translate-[-50%] stroke-3 w-4":"hidden"}`} /></button>
+      
+      <button type="button" className={`${ctx.activeBtn==="fontTheme"?"bg-neutral-100 dark:bg-slate-800":""} cursor-pointer flex items-center gap-2 p-3 relative rounded-lg hover:bg-neutral-100 dark:hover:bg-slate-800 group`} onClick={() => ctx.setActiveBtn("fontTheme")}><TbTextSize size={25} className={`${ctx.activeBtn==="fontTheme"?"text-blue-500":""} group-hover:text-blue-500 stroke-2 w-6`}/><span>Font Theme</span> <ChevronRightIcon className={`${ctx.activeBtn==="fontTheme"?"absolute top-[50%] right-0 translate-[-50%] stroke-3 w-4":"hidden"}`} /></button>
 
-          <button type="button"className={`${ctx.activeBtn==="updatePassword"?"bg-neutral-100 dark:bg-slate-800":""} cursor-pointer flex items-center gap-2 p-3 relative rounded-lg hover:bg-neutral-100 dark:hover:bg-slate-800 group`} onClick={() => ctx.setActiveBtn("updatePassword")}><LockClosedIcon className={`${ctx.activeBtn==="updatePassword"?"text-blue-500":""} group-hover:text-blue-500 stroke-2 w-6`}/><span>Change Password</span> <ChevronRightIcon className={`${ctx.activeBtn==="updatePassword"?"absolute top-[50%] right-0 translate-[-50%] stroke-3 w-4":"hidden"}`} /></button>
+      <button type="button"className={`${ctx.activeBtn==="updatePassword"?"bg-neutral-100 dark:bg-slate-800":""} cursor-pointer flex items-center gap-2 p-3 relative rounded-lg hover:bg-neutral-100 dark:hover:bg-slate-800 group`} onClick={() => ctx.setActiveBtn("updatePassword")}><LockClosedIcon className={`${ctx.activeBtn==="updatePassword"?"text-blue-500":""} group-hover:text-blue-500 stroke-2 w-6`}/><span>Change Password</span> <ChevronRightIcon className={`${ctx.activeBtn==="updatePassword"?"absolute top-[50%] right-0 translate-[-50%] stroke-3 w-4":"hidden"}`} /></button>
 
-          <div className="border-t-1 border-gray-400 pt-5">
-            <Link href="/login" type="button" className="cursor-pointer flex gap-2 p-3 rounded-lg group"><ArrowRightStartOnRectangleIcon className="group-hover:text-blue-500 stroke-2 w-6"/> <span>Logout</span></Link>
-          </div>
-        </section>
+      <div className="border-t-1 border-gray-400 pt-5">
+        <Link href="/login" type="button" className="cursor-pointer flex gap-2 p-3 rounded-lg hover:bg-neutral-100 dark:hover:bg-slate-800 group"><ArrowRightStartOnRectangleIcon className="group-hover:text-blue-500 stroke-2 w-6"/> <span>Logout</span></Link>
+      </div>
+    </section>
   )
 }
