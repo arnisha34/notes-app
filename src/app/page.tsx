@@ -1,22 +1,29 @@
 'use client'
-import { Note } from './components/note'
+import { Navbar } from './components/navbar'
 import { SideNav } from './components/sideNav'
-import { Modal } from './components/modal' 
+import { Note } from './components/note'
+import { Settings } from './components/settings'
+import { Modal } from './components/modal'
 import { useState } from 'react'
-import { Context } from '../context/context'
+import { Context } from "@/context/context"
 
 export default function Home() {
 
   const [newNote, setNewNote] = useState()
   const [isOpen, setIsOpen] = useState(false)
   const [activeModal, setActiveModal] = useState(null)
-
-
+  const [activeView, setActiveView] = useState("home")
+  const [activeBtn, setActiveBtn] = useState("")
+  const [isChecked, setIsChecked] = useState("")
+  
   return (
-    <Context.Provider value={{activeModal, setActiveModal, isOpen, setIsOpen, newNote, setNewNote}}>
-      <div id="main" className='flex w-full h-full dark dark:bg-slate-950'>
+    <Context.Provider value={{activeBtn, setActiveBtn, activeModal, setActiveModal, activeView, setActiveView, isChecked, setIsChecked, isOpen, setIsOpen, newNote, setNewNote}}>
+      <div className={`${isChecked === 'dark'? 'dark': isChecked === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches? 'dark': ''} bg-white dark:bg-slate-950 dark:text-white flex w-full h-full text-lg`}>
         <SideNav />
-        <Note />
+        <div className='flex flex-col flex-1'>
+          <Navbar />
+          {activeView === "home"?<Note />:<Settings />}
+        </div>
         <Modal />
       </div>
     </Context.Provider>

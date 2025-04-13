@@ -4,7 +4,7 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-:root {
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -28,4 +28,4 @@ body {
   color: var(--foreground);
   font-family: Lato, Arial, Helvetica, sans-serif;
   box-sizing: border-box;
-}
+} */

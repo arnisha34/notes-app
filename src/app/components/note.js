@@ -3,7 +3,6 @@ import { ClockIcon } from "@heroicons/react/24/outline"
 import { TagIcon } from "@heroicons/react/24/outline"
 import { PlusIcon } from "@heroicons/react/24/outline"
 import { PencilSquareIcon } from "@heroicons/react/24/outline"
-import { Header } from './header'
 import { useContext } from "react"
 import { Context } from "@/context/context"
 import { Buttons } from '../components/buttons'
@@ -18,11 +17,10 @@ export const Note = () => {
 
   return(
     <div className="w-full mx-auto">
-      <Header />
       <div id="main-section" className="flex h-screen">
         <section className="border-r-1 border-gray-400 flex flex-col gap-5 p-5 w-xs">
           <button type="button" className="bg-blue-500 cursor-pointer font-bold flex gap-2 justify-center items-center py-2 block rounded-md text-white w-full hover:bg-blue-600" onClick={() => handleAddNote("addNote")}><PlusIcon className="stroke-3 w-4"/>Create New Note</button>
-          <div className={`${ctx.newNote === "addNote"?"hidden":"bg-neutral-100 flex flex-col gap-3 items-center p-3 rounded-lg text-sm"}`}><PencilSquareIcon className=" text-gray-500 w-8"/>You haven&apos;t added any notes yet. Begin a new note to jot down your thoughts and ideas.</div>
+          <div className={`${ctx.newNote === "addNote"?"hidden":""} bg-neutral-100 flex flex-col gap-3 items-center p-3 rounded-lg text-sm dark:bg-slate-800 dark:text-slate-400"}`}><PencilSquareIcon className="text-gray-500 w-8 dark:text-slate-400"/>You haven&apos;t added any notes yet. Begin a new note to jot down your thoughts and ideas.</div>
         </section>
         <section id="note" className={`${ctx.newNote === "addNote"?"border-r-1 border-gray-400":""} flex flex-col flex-2 p-5`}>
         {ctx.newNote === "addNote"?

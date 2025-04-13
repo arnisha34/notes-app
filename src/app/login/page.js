@@ -3,7 +3,7 @@ import Image from "next/image"
 import { useState } from "react"
 import { useRouter } from 'next/navigation';
 
-export default function Auth() {
+export default function Auth () {
 
   const router = useRouter();
 

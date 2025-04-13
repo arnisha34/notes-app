@@ -13,19 +13,20 @@ export const Modal = () => {
       <div id="modal" className="bg-white px-8 py-5 rounded-lg w-md dark:bg-slate-800">
         {buttonDetails.filter(btn => btn.id === ctx.activeModal).map(btn =>{
           return(
-            <div key={btn.id}>
-              <div className="desc flex gap-5 mb-5">
-                <div className="icon bg-slate-600 p-2">
+            <div key={btn.id} className="text-neutral-700 dark:text-slate-300">
+              <div className="desc flex gap-5 items-start mb-5">
+                <div className="icon bg-neutral-100 dark:bg-slate-600 p-2 rounded-sm">
                   {btn.icon}
                 </div>
-                <div>
-                  <h4 className="text-md font-bold">{btn.title}</h4>
-                  <p className="font-2xs">{btn.text}</p>
+                <div className="flex flex-col gap-2">
+                  <h4 className="text-lg font-bold">{btn.title}</h4>
+                  <p className="text-md">{btn.text}</p>
                 </div>
               </div>
-              <div className="actions border-t-1 border-gray-400 flex gap justify-end pt-4 rounded-b-lg">
-                <button type="button" className="bg-neutral-100 cursor-pointer px-4 py-1 rounded-lg dark:bg-slate-500" onClick={() => ctx.setIsOpen(false)}>Cancel</button>
-                <button type="button" className="cursor-pointer p-2 rounded-lg">{btn.btnText}</button>
+              <div className="actions border-t-1 border-gray-400 flex gap-4 justify-end pt-6 rounded-b-lg">
+                <button type="button" className="bg-neutral-100 cursor-pointer px-4 py-1 rounded-sm dark:bg-slate-500" onClick={() => ctx.setIsOpen(false)}>Cancel</button>
+                {console.log(btn.id)}
+                <button type="button" className={`${btn.id === "deleteOne"|| btn.id === "deleteAll"?"bg-red-600":"bg-blue-500"} cursor-pointer font-bold px-4 rounded-sm text-white`}>{btn.btnText}</button>
               </div>
             </div>
           )
@@ -38,21 +39,21 @@ export const Modal = () => {
 const buttonDetails = [
   {
     id:"archive",
-    icon:<ArchiveBoxArrowDownIcon className="w-6"/>,
+    icon:<ArchiveBoxArrowDownIcon className="w-6 dark:bg-slate-600"/>,
     title:"Archive Note",
-    text:"Are you sure you want to archive this note? It will be moved to the Archived Notes section, where you can restore it at any time.",
+    text:"Are you sure you want to archive this note? You can find it in the Archived Notes section and restore it at anytime.",
     btnText:"Archive Note"
   },
   {
     id:"deleteOne",
-    icon:<TrashIcon className="w-6"/>,
+    icon:<TrashIcon className="w-6 dark:bg-slate-600"/>,
     title:"Delete Note",
-    text:"AAre you sure you want to permanently delete this note? This action cannot be undone.",
+    text:"Are you sure you want to permanently delete this note? This action cannot be undone.",
     btnText:"Delete Note"
   },
   {
     id:"deleteAll",
-    icon:<ArchiveBoxXMarkIcon className="w-6"/>,
+    icon:<ArchiveBoxXMarkIcon className="w-6 dark:bg-slate-600"/>,
     title:"Delete All Notes",
     text:"Are you sure you want to permanently delete all the notes? This action cannot be undone.",
     btnText:"Delete All Notes"
