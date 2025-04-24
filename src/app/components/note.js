@@ -4,7 +4,7 @@ import { TagIcon } from "@heroicons/react/24/outline"
 import { PlusIcon } from "@heroicons/react/24/outline"
 import { PencilSquareIcon } from "@heroicons/react/24/outline"
 import { useContext } from "react"
-import { Context } from "@/context/context"
+import { Context } from "@/app/context/context"
 import { Buttons } from '../components/buttons'
 
 export const Note = () => {

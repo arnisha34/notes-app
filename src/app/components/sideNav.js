@@ -5,11 +5,14 @@ import { ChevronRightIcon } from "@heroicons/react/24/outline"
 import { Tags } from './tags'
 import { useContext, useState } from "react"
 import Image from "next/image"
-import { Context } from "@/context/context"
+import { Context } from "@/app/context/context"
+import { useSelector } from "react-redux";
 
 export const SideNav = () => {
 
   const [activeBtn, setActiveBtn] = useState("allNotes")
+
+  const colorTheme = useSelector(state => state.theme.colorTheme)
 
   const handleClick = (currBtn) => {
     setActiveBtn(currBtn)
@@ -21,7 +24,7 @@ export const SideNav = () => {
     <div className="border-r-1 border-gray-400 p-5 min-w-[15%]">
       <section id="sideNav">
         <div id="logo" className="font-[Luxurious_Script] font-bold text-5xl mb-6" onClick={() => ctx.setActiveView("home")}>
-           <Image src={`${ctx.colorTheme === "dark"?"/note-logo_dark.svg":"/note-logo.svg"}`} alt="Notes" width={0} height={0} style={{width: '150px', height: 'auto'}} />
+           <Image src={`${colorTheme === "dark"?"/note-logo_dark.svg":"/note-logo.svg"}`} alt="Notes" width={0} height={0} style={{width: '150px', height: 'auto'}} />
         </div>
         <div className="actions border-b-1 border-gray-400 pb-4">
           <button type="button" className={`${activeBtn === "allNotes" ? "bg-neutral-100 dark:bg-slate-800":""} cursor-pointer flex gap-2 hover:bg-neutral-100 items-center p-3 rounded-lg relative dark:text-white dark:hover:bg-slate-800 w-full group`} onClick={() => {handleClick("allNotes"); ctx.setActiveView("home");}}><HomeIcon className={`${activeBtn === "allNotes" ? "text-blue-500" :""} group-hover:text-blue-500 stroke-2 w-5`}/>All Notes <ChevronRightIcon className={`${activeBtn === "allNotes" ? "absolute top-[50%] right-0 translate-[-50%] stroke-3 w-4":"hidden"}`} /></button>

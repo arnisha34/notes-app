@@ -1,4 +1,4 @@
-import { Context } from "@/context/context"
+import { Context } from "@/app/context/context"
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 import { Cog6ToothIcon } from "@heroicons/react/24/outline"
 import { useContext } from "react"
