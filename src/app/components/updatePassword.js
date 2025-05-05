@@ -22,33 +22,27 @@ export const UpdatePassword = () => {
     if(!auth.currentUser){
       setErrorMsg("No user is currently signed in.")
       router.push('')
-      return;
+      return
     }
 
-    const credential = EmailAuthProvider.credential(auth.currentUser.email, password);
+    const credential = EmailAuthProvider.credential(auth.currentUser.email, password)
 
     try {
-      // Re-authenticate the user using their current password
-      await reauthenticateWithCredential(auth.currentUser, credential);
+      await reauthenticateWithCredential(auth.currentUser, credential)
 
-      // If re-authentication is successful, proceed to update the password
-      await updatePassword(auth.currentUser, newPassword);
+      await updatePassword(auth.currentUser, newPassword)
 
-      // Reset form and error message after successful password update
       setPassword("");
       setNewPassword("");
       setConfirmPassword("");
       setErrorMsg("");
-      setSuccessMsg("Password updated successfully!");
-
-      // Optionally, redirect the user after password change
-      // router.push('/'); // Uncomment and use if you have a router setup
+      setSuccessMsg("Password updated successfully!")
 
     } catch (error) {
       if (error.code === "auth/wrong-password") {
-        setErrorMsg("The current password is incorrect.");
+        setErrorMsg("The current password is incorrect.")
       } else {
-        setErrorMsg(error.message); // Display any other error messages
+        setErrorMsg(error.message)
       }
     }
   }

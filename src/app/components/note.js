@@ -7,7 +7,7 @@ import { useContext, useState } from "react"
 import { Context } from "@/app/context/context"
 import { Buttons } from '../components/buttons'
 import { db } from '@/config/firebase'
-import { collection, addDoc } from 'firebase/firestore'
+import { collection, addDoc, deleteDoc } from 'firebase/firestore'
 import { useDispatch } from "react-redux"
 import { addNote } from '@/store/noteSlice'
 
@@ -17,10 +17,11 @@ export const Note = () => {
   
   const ctx = useContext(Context)
 
-  const [disabled, setDisabled] = useState(true)
   const [title, setTitle] = useState('')
   const [date, setDate] = useState('')
   const [noteText, setNoteText] = useState('')
+
+  const isDisabled = !title || !ctx.tags.length || !noteText
 
   const newNoteForm = (createNote) => {
    ctx.setNewNote(createNote)
@@ -33,15 +34,10 @@ export const Note = () => {
 
   const addNewNote = async () => {
 
-    if(!title === "" && !ctx.tags === "" && !noteText === ""){
-      setDisabled(true)
-    }
-    setDisabled(false)
-
     const noteInfo = {
       title: title,
       tags: ctx.tags,
-      created: date,
+      created: new Date().toLocaleString(),
       text: noteText,
       edited: date,
       archived: false
@@ -58,6 +54,10 @@ export const Note = () => {
     ctx.setTags([])
     setNoteText('')
     setDate('')
+  }
+
+  const deleteNote = () => {
+
   }
 
   const clearNote = () => {
@@ -87,7 +87,7 @@ export const Note = () => {
             <textarea placeholder="Start typing here..." value={noteText} className="focus:outline-none w-full h-full border-t-1 border-gray-400 py-5 resize-none font-medium" onChange={(e) => setNoteText(e.target.value)}></textarea>
           </div>
           <div className="note-actions flex gap-3 text-md border-t-1 border-gray-400 pt-5">
-            <button type="submit" className="bg-blue-500 cursor-pointer py-1 px-2 rounded-md text-white disabled:bg-blue-300 disabled:cursor-not-allowed hover:bg-blue-600" disabled={disabled} onClick={addNewNote}>Save Note</button>
+            <button type="submit" className="bg-blue-500 cursor-pointer py-1 px-2 rounded-md text-white disabled:bg-blue-300 disabled:cursor-not-allowed hover:bg-blue-600" disabled={isDisabled} onClick={addNewNote}>Save Note</button>
 
             <button type="reset" value="cancel" className="bg-gray-200 py-1 px-2 rounded-md dark:text-black" onClick={clearNote}>Cancel</button>
           </div></>:<section className="flex"></section>}
