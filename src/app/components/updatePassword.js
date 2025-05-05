@@ -9,13 +9,12 @@ export const UpdatePassword = () => {
   const [newPassword, setNewPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
 
-  const passwordError = password&&password.length<8 !== reauthenticateWithCredential(auth.currentUser, credential)
+  const passwordError = password&&password.length<8 !== auth.currentUser.password;
   const newPasswordError = newPassword&&newPassword.length <8;
   const confirmPasswordError = newPassword !== confirmPassword
   const isDisabled = !password || passwordError || !newPassword || newPasswordError || !confirmPassword || confirmPasswordError;
 
   const router = useRouter()
-
 
   const handlePasswordUpdate = async (e)  => {
     e.preventDefault()

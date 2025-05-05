@@ -8,18 +8,18 @@ import { useEffect, useState } from 'react'
 import { Context } from "@/app/context/context"
 import { useSelector } from 'react-redux';
 import { useDispatch } from "react-redux";
-import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/config/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 import { login, logout } from "@/store/authSlice";
-
 
 export default function Home() {
 
-  const [newNote, setNewNote] = useState()
+  const [newNote, setNewNote] = useState('')
   const [activeModal, setActiveModal] = useState(null)
   const [activeView, setActiveView] = useState("home")
   const [activeBtn, setActiveBtn] = useState("")
   const [systemPrefersDark, setSystemPrefersDark] = useState(false);
+  const [tags, setTags] = useState([])
 
   const fontTheme = useSelector(state => state.theme.fontTheme);
   const colorTheme = useSelector(state => state.theme.colorTheme);
@@ -39,6 +39,7 @@ export default function Home() {
   const dispatch = useDispatch()
   
     useEffect(() => {
+
       const unsubscribe = onAuthStateChanged(auth, (user) => {
         if (user) {
           dispatch(login({ uid: user.uid, email: user.email }));
@@ -50,9 +51,10 @@ export default function Home() {
       return () => unsubscribe();
   
     },[dispatch])
+    
 
   return (
-    <Context.Provider value={{activeBtn, setActiveBtn, activeModal, setActiveModal, activeView, setActiveView, newNote, setNewNote}}>
+    <Context.Provider value={{activeBtn, setActiveBtn, activeModal, setActiveModal, activeView, setActiveView, newNote, setNewNote, tags, setTags}}>
       <div className={`${themeClass} ${fontTheme} bg-white dark:bg-slate-950 dark:text-white flex w-full h-full text-md`}>
         <SideNav />
         <div className='flex flex-col flex-1'>

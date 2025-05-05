@@ -28,7 +28,7 @@ export const SideNav = () => {
         </div>
         <div className="actions border-b-1 border-gray-400 pb-4">
           <button type="button" className={`${activeBtn === "allNotes" ? "bg-neutral-100 dark:bg-slate-800":""} cursor-pointer flex gap-2 hover:bg-neutral-100 items-center p-3 rounded-lg relative dark:text-white dark:hover:bg-slate-800 w-full group`} onClick={() => {handleClick("allNotes"); ctx.setActiveView("home");}}><HomeIcon className={`${activeBtn === "allNotes" ? "text-blue-500" :""} group-hover:text-blue-500 stroke-2 w-5`}/>All Notes <ChevronRightIcon className={`${activeBtn === "allNotes" ? "absolute top-[50%] right-0 translate-[-50%] stroke-3 w-4":"hidden"}`} /></button>
-          
+
           <button type="button" className={`${activeBtn === "archived" ? "bg-neutral-100 dark:bg-slate-800":""} cursor-pointer flex gap-2 hover:bg-neutral-100 items-center mt-2 p-3 rounded-lg relative dark:text-white dark:hover:bg-slate-800 w-full group`} onClick={() => handleClick("archived")}><ArchiveBoxIcon className={`${activeBtn === "archived" ? "text-blue-500" :""} group-hover:text-blue-500 stroke-2 w-5`}/>Archived <ChevronRightIcon className={`${activeBtn === "archived" ? "absolute top-[50%] right-0 translate-[-50%] stroke-3 w-4":"hidden"}`} /></button>
         </div>
       </section>
