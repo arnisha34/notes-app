@@ -1,13 +1,9 @@
 import { useDispatch, useSelector } from "react-redux"
-import { doc, deleteDoc } from "firebase/firestore";
+import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/config/firebase";
-
-import { ArchiveBoxArrowDownIcon } from "@heroicons/react/24/outline"
-import { TrashIcon } from "@heroicons/react/24/outline"
-import { ArchiveBoxXMarkIcon } from "@heroicons/react/24/outline"
-
+import { ArchiveBoxArrowDownIcon, TrashIcon, ArchiveBoxXMarkIcon } from "@heroicons/react/24/outline"
 import { closeDialog } from "@/store/dialogSlice"
-import { deleteNote, deleteAllNotes } from '@/store/noteSlice'
+import { deleteNote, deleteAllNotes, updateNote } from '@/store/noteSlice'
 import { useContext } from "react";
 import { Context } from "../context/context";
 
@@ -15,18 +11,33 @@ import { Context } from "../context/context";
 export const Dialog = () => {
 
   const dispatch = useDispatch()
+
   const { isOpen, dialogType } = useSelector(state => state.dialog)
   
   const ctx = useContext(Context)
+
+  const archiveNote = async (id) => { 
+    try{
+      await updateDoc(doc(db, "notes", id), {
+        archived: true
+      })
+      dispatch(updateNote({ id: id, archived: true }))
+    }catch (err){
+      console.log(err)
+    }
+  }
 
   const handleDelete = async (id) => {
     try{
       await deleteDoc(doc(db, "notes", id))
       dispatch(deleteNote({id}))
+      ctx.setActiveNote(null)
     }catch (err) {
       console.log(err)
     } 
   }
+
+  console.log()
 
   return(
     <div id="modal-bg" className={`${isOpen?"block": "hidden"} absolute flex justify-center items-center bg-neutral-950/60 w-full h-full z-3}`}>
@@ -52,7 +63,7 @@ export const Dialog = () => {
             title:"Delete All Notes",
             text:"Are you sure you want to permanently delete all the notes? This action cannot be undone.",
             btnText:"Delete All Notes"
-          },
+          }
         ].filter(dialog => dialog.id === dialogType)
         .map(({id, icon, title, text, btnText}) =>{
           return(
@@ -68,7 +79,15 @@ export const Dialog = () => {
               </div>
               <div className="actions border-t-1 border-gray-400 flex gap-4 justify-end pt-6 rounded-b-lg">
                 <button type="button" className="bg-neutral-100 cursor-pointer px-4 py-1 rounded-sm dark:bg-slate-500" onClick={() => dispatch(closeDialog())}>Cancel</button>
-                <button type="submit" className={`${id === "delete" || id === "deleteAll"?"bg-red-600":"bg-blue-500"} cursor-pointer font-bold px-4 rounded-sm text-white`} onClick={() => {handleDelete(ctx.activeNote?.id); dispatch(closeDialog())}}>{btnText}</button>
+                <button type="submit" className={`${id === "delete" || id === "deleteAll"?"bg-red-600":"bg-blue-500"} cursor-pointer font-bold px-4 rounded-sm text-white`} onClick={() => { 
+                  if (id === "delete") {
+                    handleDelete(ctx.activeNote?.id);
+                  } else if (id === "archive") {
+                    archiveNote(ctx.activeNote?.id);
+                  } else if (id === "deleteAll") {
+                    handleDeleteAll();
+                  }dispatch(closeDialog())}}>{btnText}
+                </button>
               </div>
             </div>
           )

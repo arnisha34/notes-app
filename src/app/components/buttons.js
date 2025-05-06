@@ -1,27 +1,38 @@
 'use client'
 import { useContext } from "react"
-import { Context } from "../context/context"
-import { useDispatch } from "react-redux"
-import { openDialog } from "@/store/dialogSlice";
-import { logout } from "@/store/authSlice"
-import { auth } from "@/config/firebase"
-import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 
-import { ArchiveBoxArrowDownIcon } from "@heroicons/react/24/outline"
-import { TrashIcon } from "@heroicons/react/24/outline"
-import { ArchiveBoxXMarkIcon } from "@heroicons/react/24/outline"
-import { SunIcon } from "@heroicons/react/24/outline"
+import { db } from "@/config/firebase";
+import { auth } from "@/config/firebase"
+import { doc, updateDoc } from "firebase/firestore";
+import { signOut } from "firebase/auth";
+import { useDispatch } from "react-redux"
+import { updateNote } from "@/store/noteSlice";
+import { openDialog } from "@/store/dialogSlice";
+import { logout } from "@/store/authSlice"
+
+import { Context } from "../context/context"
+
 import { TbTextSize } from "react-icons/tb";
-import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/24/outline"
-import { LockClosedIcon } from "@heroicons/react/24/outline"
-import { ChevronRightIcon } from "@heroicons/react/24/outline"
+import { ArchiveBoxArrowDownIcon, ArchiveBoxXMarkIcon, ArrowRightStartOnRectangleIcon, ArrowPathIcon, ChevronRightIcon, LockClosedIcon, SunIcon, TrashIcon } from "@heroicons/react/24/outline"
+
 
   export const Buttons = () => {
 
     const dispatch = useDispatch()
 
     const ctx = useContext(Context)
+
+    const restoreNote = async (id) => {
+      try{
+        await updateDoc(doc(db, "notes", id), {
+          archived: false
+        })
+        dispatch(updateNote({ id: id, archived: false }))
+      }catch (err){
+        console.log(err)
+      }
+    }
     
   return(
     <section className={`${ctx.activeNote? "block":"hidden"} actions flex flex-col flex-1 gap-3 p-5`}>
@@ -33,6 +44,11 @@ import { ChevronRightIcon } from "@heroicons/react/24/outline"
             icon: <ArchiveBoxArrowDownIcon className="stroke-2 w-5"/>
           },
           {
+            id:"restore",
+            btnText:"Restore Note",
+            icon: <ArrowPathIcon className="stroke-2 w-5"/>
+          },
+          {
             id: "delete",
             btnText: "Delete Note",
             icon: <TrashIcon className="stroke-2 w-5"/>
@@ -41,10 +57,13 @@ import { ChevronRightIcon } from "@heroicons/react/24/outline"
             id: "deleteAll",
             btnText: "Delete All Notes",
             icon: <ArchiveBoxXMarkIcon className="stroke-2 w-5"/>
-          }
+          },
         ].map(({id, btnText, icon}) => {
+          const hide =
+          (ctx.activeView === "archived" && id === "archive") ||
+          (ctx.activeView === "allNotes" && id === "restore")
           return (
-            <button key={id} type="button" value={id} className={`border-1 border-gray-400 cursor-pointer flex gap-3 items-center p-3 rounded-md hover:bg-neutral-100 dark:border-slate-800 dark:hover:bg-slate-800`} onClick={() => dispatch(openDialog(id))}>{icon}{btnText}</button>
+            <button key={id} type="button" value={id} className={`${hide?"hidden":""} border-1 border-gray-400 cursor-pointer flex gap-3 items-center p-3 rounded-md hover:bg-neutral-100 dark:border-slate-800 dark:hover:bg-slate-800`} onClick={() => {restoreNote(ctx.activeNote?.id); if(id !== "restore"){dispatch(openDialog(id));}}}>{icon}{btnText}</button>
           )
         })
       }
@@ -83,7 +102,7 @@ export const SettingsButtons = () => {
         {
           id: "fontTheme",
           icon: <TbTextSize size={25} className={`${ctx.activeBtn==="fontTheme"?"text-blue-500":""} group-hover:text-blue-500 stroke-2 w-6`}/>,
-          btnText: "Color Theme"
+          btnText: "Font Theme"
         },
         {
           id: "updatePassword",

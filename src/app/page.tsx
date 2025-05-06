@@ -17,7 +17,7 @@ export default function Home() {
 
   const [activeNote, setActiveNote] = useState(null)
   const [activeModal, setActiveModal] = useState(null)
-  const [activeView, setActiveView] = useState("home")
+  const [activeView, setActiveView] = useState("allNotes")
   const [activeBtn, setActiveBtn] = useState("")
   const [systemPrefersDark, setSystemPrefersDark] = useState(false);
   const [tags, setTags] = useState([])
@@ -76,7 +76,7 @@ export default function Home() {
         <SideNav />
         <div className='flex flex-col flex-1'>
           <Navbar />
-          {activeView === "home"?<Note />:<Settings />}
+          {activeView === "settings"? <Settings />:<Note />}
         </div>
         <Dialog />
       </div>

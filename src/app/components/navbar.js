@@ -9,7 +9,7 @@ export const Navbar = () => {
 
   return(
     <header className="flex justify-between items-center border-b-1 border-gray-400 p-5">
-      <h1 className="capitalize font-extrabold text-2xl">{ctx.activeView === "home"?"All Notes":"Settings"}</h1>
+      <h1 className="capitalize font-extrabold text-2xl">{ctx.activeView === "allNotes"?"All Notes": ctx.activeView === "archived"? "Archived":"Settings"}</h1>
         <div className="flex items-center gap-4">
           <div className="search-bar relative">
             <MagnifyingGlassIcon className="w-4 absolute top-[50%] translate-[-50%] left-5 text-gray-500"/>

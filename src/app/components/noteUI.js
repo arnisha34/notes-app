@@ -32,7 +32,7 @@ export const NoteUI = () => {
       archived: false
     }
     try {
-      if(ctx.activeNote){
+      if(ctx.activeNote&&ctx.activeNote.id){
         const updateRef = doc(db, 'notes', ctx.activeNote.id)
         await updateDoc(updateRef, noteInfo)
         dispatch(updateNote({id: ctx.activeNote.id, ...noteInfo}))
@@ -44,6 +44,11 @@ export const NoteUI = () => {
     } catch (err) {
       console.error(err);
     }
+
+    ctx.setTitle('')
+    ctx.setTags([])
+    ctx.setNoteText('')
+    ctx.setDate('')
   }
 
   const clearNote = () => {
