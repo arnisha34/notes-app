@@ -15,12 +15,15 @@ import { getNotes } from '@/store/noteSlice'
 
 export default function Home() {
 
-  const [newNote, setNewNote] = useState('')
+  const [activeNote, setActiveNote] = useState(null)
   const [activeModal, setActiveModal] = useState(null)
   const [activeView, setActiveView] = useState("home")
   const [activeBtn, setActiveBtn] = useState("")
   const [systemPrefersDark, setSystemPrefersDark] = useState(false);
   const [tags, setTags] = useState([])
+  const [title, setTitle] = useState('')
+  const [date, setDate] = useState('')
+  const [noteText, setNoteText] = useState('')
 
   const fontTheme = useSelector(state => state.theme.fontTheme);
   const colorTheme = useSelector(state => state.theme.colorTheme);
@@ -68,7 +71,7 @@ export default function Home() {
     
 
   return (
-    <Context.Provider value={{activeBtn, setActiveBtn, activeModal, setActiveModal, activeView, setActiveView, newNote, setNewNote, tags, setTags}}>
+    <Context.Provider value={{activeBtn, setActiveBtn, activeModal, setActiveModal, activeView, setActiveView, activeNote, setActiveNote, date, setDate, noteText, setNoteText, tags, setTags, title, setTitle}}>
       <div className={`${themeClass} ${fontTheme} bg-white dark:bg-slate-950 dark:text-white flex w-full h-full text-md`}>
         <SideNav />
         <div className='flex flex-col flex-1'>

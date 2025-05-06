@@ -24,7 +24,7 @@ import { ChevronRightIcon } from "@heroicons/react/24/outline"
     const ctx = useContext(Context)
     
   return(
-    <section className={`${ctx.newNote === "addNote"? "block":"hidden"} actions flex flex-col flex-1 gap-3 p-5`}>
+    <section className={`${ctx.activeNote? "block":"hidden"} actions flex flex-col flex-1 gap-3 p-5`}>
       <button type="button" value="archive" className="border-1 border-gray-400 cursor-pointer flex gap-3 items-center p-3 rounded-md hover:bg-neutral-100 dark:border-slate-800 dark:hover:bg-slate-800" onClick={() => dispatch(openDialog("archive"))}><ArchiveBoxArrowDownIcon className="stroke-2 w-5"/>Archive Note</button>
 
       <button type="button" value="delete" className="border-1 border-gray-400 cursor-pointer flex gap-3 items-center p-3 rounded-md hover:bg-neutral-100 dark:border-slate-800 dark:hover:bg-slate-800" onClick={() => dispatch(openDialog("deleteOne"))}><TrashIcon className="stroke-2 w-5"/>Delete Note</button>

@@ -1,16 +1,31 @@
+import { useDispatch, useSelector } from "react-redux"
+import { doc, deleteDoc } from "firebase/firestore";
+import { db } from "@/config/firebase";
+
 import { ArchiveBoxArrowDownIcon } from "@heroicons/react/24/outline"
 import { TrashIcon } from "@heroicons/react/24/outline"
 import { ArchiveBoxXMarkIcon } from "@heroicons/react/24/outline"
-import { useDispatch, useSelector } from "react-redux"
+
 import { closeDialog } from "@/store/dialogSlice"
+import { deleteNote } from '@/store/noteSlice'
+import { useContext } from "react";
+import { Context } from "../context/context";
+
 
 export const Dialog = () => {
 
   const dispatch = useDispatch()
   const { isOpen, dialogType } = useSelector(state => state.dialog)
 
-  const handleDelete = () => {
+  const ctx = useContext(Context)
 
+  const handleDelete = async (id) => {
+    try{
+      await deleteDoc(doc(db, "notes", id))
+      dispatch(deleteNote({id}))
+    }catch (err) {
+      console.log(err)
+    } 
   }
 
   return(
@@ -53,7 +68,7 @@ export const Dialog = () => {
               </div>
               <div className="actions border-t-1 border-gray-400 flex gap-4 justify-end pt-6 rounded-b-lg">
                 <button type="button" className="bg-neutral-100 cursor-pointer px-4 py-1 rounded-sm dark:bg-slate-500" onClick={() => dispatch(closeDialog())}>Cancel</button>
-                <button type="button" className={`${id === "deleteOne"|| id === "deleteAll"?"bg-red-600":"bg-blue-500"} cursor-pointer font-bold px-4 rounded-sm text-white`} onClick={() => handleDelete()}>{btnText}</button>
+                <button type="submit" className={`${id === "deleteOne"|| id === "deleteAll"?"bg-red-600":"bg-blue-500"} cursor-pointer font-bold px-4 rounded-sm text-white`} onClick={() => {handleDelete(ctx.activeNote?.id); dispatch(closeDialog())}}>{btnText}</button>
               </div>
             </div>
           )
