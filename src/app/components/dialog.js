@@ -9,6 +9,10 @@ export const Dialog = () => {
   const dispatch = useDispatch()
   const { isOpen, dialogType } = useSelector(state => state.dialog)
 
+  const handleDelete = () => {
+
+  }
+
   return(
     <div id="modal-bg" className={`${isOpen?"block": "hidden"} absolute flex justify-center items-center bg-neutral-950/60 w-full h-full z-3}`}>
       <div id="modal" className="bg-white px-8 py-5 rounded-lg w-md dark:bg-slate-800">
@@ -49,7 +53,7 @@ export const Dialog = () => {
               </div>
               <div className="actions border-t-1 border-gray-400 flex gap-4 justify-end pt-6 rounded-b-lg">
                 <button type="button" className="bg-neutral-100 cursor-pointer px-4 py-1 rounded-sm dark:bg-slate-500" onClick={() => dispatch(closeDialog())}>Cancel</button>
-                <button type="button" className={`${id === "deleteOne"|| id === "deleteAll"?"bg-red-600":"bg-blue-500"} cursor-pointer font-bold px-4 rounded-sm text-white`}>{btnText}</button>
+                <button type="button" className={`${id === "deleteOne"|| id === "deleteAll"?"bg-red-600":"bg-blue-500"} cursor-pointer font-bold px-4 rounded-sm text-white`} onClick={() => handleDelete()}>{btnText}</button>
               </div>
             </div>
           )

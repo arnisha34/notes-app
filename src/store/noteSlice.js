@@ -9,7 +9,7 @@ const noteSlice = createSlice({
     addNote: (state, action) => {
       state.notes.push(action.payload)
     },
-    getNote: (state, action) => {
+    getNotes: (state, action) => {
       state.notes = action.payload
     },
     deleteNote: (state, action) => {
@@ -18,9 +18,8 @@ const noteSlice = createSlice({
     deleteAllNotes: (state) => {
       state.notes = []
     }
-    
   }
 })
 
-export const {addNote, getNote, deleteNote, deleteAllNotes} = noteSlice.actions
+export const {addNote, getNotes, deleteNote, deleteAllNotes} = noteSlice.actions
 export default noteSlice.reducer
