@@ -7,7 +7,7 @@ import { TrashIcon } from "@heroicons/react/24/outline"
 import { ArchiveBoxXMarkIcon } from "@heroicons/react/24/outline"
 
 import { closeDialog } from "@/store/dialogSlice"
-import { deleteNote } from '@/store/noteSlice'
+import { deleteNote, deleteAllNotes } from '@/store/noteSlice'
 import { useContext } from "react";
 import { Context } from "../context/context";
 
@@ -16,7 +16,7 @@ export const Dialog = () => {
 
   const dispatch = useDispatch()
   const { isOpen, dialogType } = useSelector(state => state.dialog)
-
+  
   const ctx = useContext(Context)
 
   const handleDelete = async (id) => {
@@ -40,7 +40,7 @@ export const Dialog = () => {
             btnText:"Archive Note"
           },
           {
-            id:"deleteOne",
+            id:"delete",
             icon:<TrashIcon className="w-6 dark:bg-slate-600"/>,
             title:"Delete Note",
             text:"Are you sure you want to permanently delete this note? This action cannot be undone.",
@@ -68,7 +68,7 @@ export const Dialog = () => {
               </div>
               <div className="actions border-t-1 border-gray-400 flex gap-4 justify-end pt-6 rounded-b-lg">
                 <button type="button" className="bg-neutral-100 cursor-pointer px-4 py-1 rounded-sm dark:bg-slate-500" onClick={() => dispatch(closeDialog())}>Cancel</button>
-                <button type="submit" className={`${id === "deleteOne"|| id === "deleteAll"?"bg-red-600":"bg-blue-500"} cursor-pointer font-bold px-4 rounded-sm text-white`} onClick={() => {handleDelete(ctx.activeNote?.id); dispatch(closeDialog())}}>{btnText}</button>
+                <button type="submit" className={`${id === "delete" || id === "deleteAll"?"bg-red-600":"bg-blue-500"} cursor-pointer font-bold px-4 rounded-sm text-white`} onClick={() => {handleDelete(ctx.activeNote?.id); dispatch(closeDialog())}}>{btnText}</button>
               </div>
             </div>
           )

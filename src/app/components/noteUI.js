@@ -7,16 +7,14 @@ import { ClockIcon } from "@heroicons/react/24/outline"
 import { Context } from "../context/context"
 
 import { db } from '@/config/firebase'
-import { collection, addDoc } from 'firebase/firestore'
-import { addNote } from '@/store/noteSlice'
+import { collection, doc, addDoc, updateDoc } from 'firebase/firestore'
+import { addNote, updateNote } from '@/store/noteSlice'
 
 export const NoteUI = () => {
 
   const ctx = useContext(Context)
 
   const dispatch = useDispatch()
-
-  // const getNotes = useSelector(state => state.notes.notes)
 
   const isDisabled = !ctx.title || !ctx.tags?.length || !ctx.noteText
 
@@ -34,9 +32,15 @@ export const NoteUI = () => {
       archived: false
     }
     try {
-      const noteRef = await addDoc(collection(db, 'notes'), noteInfo)
-      dispatch(addNote({ id: noteRef.id, ...noteInfo }))
-      
+      if(ctx.activeNote){
+        const updateRef = doc(db, 'notes', ctx.activeNote.id)
+        await updateDoc(updateRef, noteInfo)
+        dispatch(updateNote({id: ctx.activeNote.id, ...noteInfo}))
+      }else{
+        const noteRef = await addDoc(collection(db, 'notes'), noteInfo)
+        dispatch(addNote({ id: noteRef.id, ...noteInfo }))
+      }
+
     } catch (err) {
       console.error(err);
     }
