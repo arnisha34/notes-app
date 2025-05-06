@@ -1,6 +1,5 @@
-import { Context } from "@/app/context/context"
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
-import { Cog6ToothIcon } from "@heroicons/react/24/outline"
+import { Context } from "../context/context"
+import { Cog6ToothIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 import { useContext } from "react"
 
 export const Navbar = () => {

@@ -37,8 +37,6 @@ export const Dialog = () => {
     } 
   }
 
-  console.log()
-
   return(
     <div id="modal-bg" className={`${isOpen?"block": "hidden"} absolute flex justify-center items-center bg-neutral-950/60 w-full h-full z-3}`}>
       <div id="modal" className="bg-white px-8 py-5 rounded-lg w-md dark:bg-slate-800">

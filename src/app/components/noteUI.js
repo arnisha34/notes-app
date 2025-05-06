@@ -1,14 +1,12 @@
 
 import { useContext, useEffect } from "react"
 import { useDispatch } from "react-redux"
-
 import { NoteTags } from "./noteTags"
-import { ClockIcon } from "@heroicons/react/24/outline"
-import { Context } from "../context/context"
-
 import { db } from '@/config/firebase'
 import { collection, doc, addDoc, updateDoc } from 'firebase/firestore'
 import { addNote, updateNote } from '@/store/noteSlice'
+import { Context } from "../context/context"
+import { ClockIcon } from "@heroicons/react/24/outline"
 
 export const NoteUI = () => {
 

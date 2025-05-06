@@ -1,17 +1,17 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { collection, getDocs} from 'firebase/firestore'
 import { Navbar } from './components/navbar'
 import { SideNav } from './components/sideNav'
 import { Note } from './components/note'
 import { Settings } from './components/settings'
 import { Dialog } from './components/dialog'
-import { Context } from "@/app/context/context"
+import { collection, getDocs} from 'firebase/firestore'
 import { auth, db } from "@/config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { login, logout } from "@/store/authSlice";
 import { getNotes } from '@/store/noteSlice'
+import { Context } from "@/app/context/context"
 
 export default function Home() {
 

@@ -3,7 +3,7 @@ import { SettingsButtons } from "./buttons"
 import { ColorTheme } from "./colorTheme"
 import { FontTheme } from "./fontTheme"
 import { UpdatePassword } from "./updatePassword"
-import { Context } from "@/app/context/context"
+import { Context } from "../context/context"
 
 export const Settings = () => {
 
@@ -13,12 +13,20 @@ export const Settings = () => {
     <div className="w-full mx-auto">
       <div id="main-section" className="flex h-screen">
         <SettingsButtons />
-        {ctx.activeBtn ===
-          "colorTheme"?<ColorTheme />:
-        ctx.activeBtn===
-          "fontTheme"?<FontTheme />:
-        ctx.activeBtn===
-          "updatePassword"?<UpdatePassword />:null}
+        {[
+          {
+            id:"colorTheme",
+            component:<ColorTheme/>
+          },
+          {
+            id:"fontTheme",
+            component:<FontTheme/>
+          },
+          {
+            id:"updatePassword",
+            component:<UpdatePassword />
+          }
+        ].map(({id, component}) => <div key={id}>{ctx.activeBtn === id ? component:null}</div>)}
       </div>
     </div>
   )

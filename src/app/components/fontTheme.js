@@ -1,8 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { setFontTheme } from '@/store/themeSlice'
 import { VscTextSize } from "react-icons/vsc";
-import { IoIosRadioButtonOn } from "react-icons/io";
-import { IoIosRadioButtonOff } from "react-icons/io";
+import { IoIosRadioButtonOn, IoIosRadioButtonOff } from "react-icons/io";
 
 export const FontTheme = () => {
 
