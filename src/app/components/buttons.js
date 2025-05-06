@@ -43,9 +43,8 @@ import { ChevronRightIcon } from "@heroicons/react/24/outline"
             icon: <ArchiveBoxXMarkIcon className="stroke-2 w-5"/>
           }
         ].map(({id, btnText, icon}) => {
-          console.log(id)
           return (
-            <button key={id} type="button" value={id} className="border-1 border-gray-400 cursor-pointer flex gap-3 items-center p-3 rounded-md hover:bg-neutral-100 dark:border-slate-800 dark:hover:bg-slate-800" onClick={() => dispatch(openDialog(id))}>{icon}{btnText}</button>
+            <button key={id} type="button" value={id} className={`border-1 border-gray-400 cursor-pointer flex gap-3 items-center p-3 rounded-md hover:bg-neutral-100 dark:border-slate-800 dark:hover:bg-slate-800`} onClick={() => dispatch(openDialog(id))}>{icon}{btnText}</button>
           )
         })
       }
