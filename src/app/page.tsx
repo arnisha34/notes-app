@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Navbar } from './components/navbar'
 import { SideNav } from './components/sideNav'
-import { Note } from './components/note'
+import { CreateNote } from './components/createNote'
 import { Settings } from './components/settings'
 import { Dialog } from './components/dialog'
 import { collection, getDocs} from 'firebase/firestore'
@@ -75,7 +75,7 @@ export default function Home() {
         <SideNav />
         <div className='flex flex-col flex-1'>
           <Navbar />
-          {activeView === "settings"? <Settings />:<Note />}
+          {activeView === "settings"? <Settings />:<CreateNote />}
         </div>
         <Dialog />
       </div>

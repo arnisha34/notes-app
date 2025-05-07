@@ -12,7 +12,9 @@ export const SavedNotes = () => {
   const firstNote = getNotes.filter(note => note.archived === isArchivedView)
   
   useEffect(() => {
-    if (firstNote.length > 0) {
+    if(firstNote.length === 0){
+      ctx.setActiveNote(null)
+    }else if (!ctx.activeNote && firstNote.length > 0) {
       ctx.setActiveNote(firstNote[0])
     }
   },[ctx, firstNote])
@@ -21,8 +23,6 @@ export const SavedNotes = () => {
     const currNoteId = getNotes.find(note => id === note.id)
     ctx.setActiveNote(currNoteId)
   }
-
-  console.log(ctx.activeNote)
 
   return (
     <div className="divide-y divide-gray-300 overflow-y-scroll">
