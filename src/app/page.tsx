@@ -18,7 +18,6 @@ export default function Home() {
   const [activeNote, setActiveNote] = useState(null)
   const [activeModal, setActiveModal] = useState(null)
   const [activeView, setActiveView] = useState("allNotes")
-  const [activeBtn, setActiveBtn] = useState("")
   const [systemPrefersDark, setSystemPrefersDark] = useState(false);
   const [tags, setTags] = useState([])
   const [title, setTitle] = useState('')
@@ -71,7 +70,7 @@ export default function Home() {
     
 
   return (
-    <Context.Provider value={{activeBtn, setActiveBtn, activeModal, setActiveModal, activeView, setActiveView, activeNote, setActiveNote, date, setDate, noteText, setNoteText, tags, setTags, title, setTitle}}>
+    <Context.Provider value={{activeModal, setActiveModal, activeView, setActiveView, activeNote, setActiveNote, date, setDate, noteText, setNoteText, tags, setTags, title, setTitle}}>
       <div className={`${themeClass} ${fontTheme} bg-white dark:bg-slate-950 dark:text-white flex w-full h-full text-md`}>
         <SideNav />
         <div className='flex flex-col flex-1'>

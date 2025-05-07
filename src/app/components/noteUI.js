@@ -63,6 +63,7 @@ export const NoteUI = () => {
       ctx.setNoteText(ctx.activeNote.text || '')
       ctx.setDate(ctx.activeNote.edited || '')
     }
+  
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctx.activeNote])
 
