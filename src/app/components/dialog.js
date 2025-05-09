@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { doc, deleteDoc, updateDoc } from "firebase/firestore";
+import { collection, getDocs, doc, deleteDoc, updateDoc, writeBatch } from "firebase/firestore";
 import { db } from "@/config/firebase";
 import { ArchiveBoxArrowDownIcon, TrashIcon, ArchiveBoxXMarkIcon } from "@heroicons/react/24/outline"
 import { closeDialog } from "@/store/dialogSlice"
@@ -35,6 +35,31 @@ export const Dialog = () => {
     }catch (err) {
       console.log(err)
     } 
+  }
+
+  const handleDeleteAll = async () => {
+    try {
+      const getNotes = collection(db, 'notes')
+      const querySnapshot = await getDocs(getNotes)
+
+      const batch = writeBatch(db)
+
+      querySnapshot.forEach(notes => {
+        const docRef = doc(db, 'notes', notes.id)
+        batch.delete(docRef)
+      })
+
+      await batch.commit()
+      dispatch(deleteAllNotes())
+
+      ctx.setTitle('')
+      ctx.setTags([])
+      ctx.setDate('')
+      ctx.setNoteText('')
+
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return(

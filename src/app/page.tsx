@@ -18,11 +18,14 @@ export default function Home() {
   const [activeNote, setActiveNote] = useState(null)
   const [activeModal, setActiveModal] = useState(null)
   const [activeView, setActiveView] = useState("allNotes")
+  const [activeAllNotes, setActiveAllNotes] = useState(null)
+  const [activeArchivedNotes, setActiveArchivedNotes] = useState(null);
+  const [date, setDate] = useState('')
+  const [noteText, setNoteText] = useState('')
   const [systemPrefersDark, setSystemPrefersDark] = useState(false);
   const [tags, setTags] = useState([])
   const [title, setTitle] = useState('')
-  const [date, setDate] = useState('')
-  const [noteText, setNoteText] = useState('')
+
 
   const fontTheme = useSelector(state => state.theme.fontTheme);
   const colorTheme = useSelector(state => state.theme.colorTheme);
@@ -70,7 +73,7 @@ export default function Home() {
     
 
   return (
-    <Context.Provider value={{activeModal, setActiveModal, activeView, setActiveView, activeNote, setActiveNote, date, setDate, noteText, setNoteText, tags, setTags, title, setTitle}}>
+    <Context.Provider value={{activeAllNotes, setActiveAllNotes, activeArchivedNotes, setActiveArchivedNotes, activeModal, setActiveModal, activeView, setActiveView, activeNote, setActiveNote, date, setDate, noteText, setNoteText, tags, setTags, title, setTitle}}>
       <div className={`${themeClass} ${fontTheme} bg-white dark:bg-slate-950 dark:text-white flex w-full h-full text-md`}>
         <SideNav />
         <div className='flex flex-col flex-1'>

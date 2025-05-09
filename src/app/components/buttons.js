@@ -35,39 +35,35 @@ import { ArchiveBoxArrowDownIcon, ArchiveBoxXMarkIcon, ArrowRightStartOnRectangl
     }
     
   return(
-    <section className={`${ctx.activeNote? "block":"hidden"} actions flex flex-col flex-1 gap-3 p-5`}>
-      {
-        [
-          {
-            id: "archive",
-            btnText: "Archive Note",
-            icon: <ArchiveBoxArrowDownIcon className="stroke-2 w-5"/>
-          },
-          {
-            id:"restore",
-            btnText:"Restore Note",
-            icon: <ArrowPathIcon className="stroke-2 w-5"/>
-          },
-          {
-            id: "delete",
-            btnText: "Delete Note",
-            icon: <TrashIcon className="stroke-2 w-5"/>
-          },
-          {
-            id: "deleteAll",
-            btnText: "Delete All Notes",
-            icon: <ArchiveBoxXMarkIcon className="stroke-2 w-5"/>
-          },
-        ].map(({id, btnText, icon}) => {
-          const hide =
-          (ctx.activeView === "archived" && id === "archive") ||
-          (ctx.activeView === "allNotes" && id === "restore")
-          return (
-            <button key={id} type="button" value={id} className={`${hide?"hidden":""} border-1 border-gray-400 cursor-pointer flex gap-3 items-center p-3 rounded-md hover:bg-neutral-100 dark:border-slate-800 dark:hover:bg-slate-800`} onClick={() => {restoreNote(ctx.activeNote?.id); if(id !== "restore"){dispatch(openDialog(id));}}}>{icon}{btnText}</button>
-          )
-        })
-      }
-    </section>
+      [
+        {
+          id: "archive",
+          btnText: "Archive Note",
+          icon: <ArchiveBoxArrowDownIcon className="stroke-2 w-5"/>
+        },
+        {
+          id:"restore",
+          btnText:"Restore Note",
+          icon: <ArrowPathIcon className="stroke-2 w-5"/>
+        },
+        {
+          id: "delete",
+          btnText: "Delete Note",
+          icon: <TrashIcon className="stroke-2 w-5"/>
+        },
+        {
+          id: "deleteAll",
+          btnText: "Delete All Notes",
+          icon: <ArchiveBoxXMarkIcon className="stroke-2 w-5"/>
+        }
+      ].map(({id, btnText, icon}) => {
+        const hide =
+        (ctx.activeView === "archived" && id === "archive") ||
+        (ctx.activeView === "allNotes" && id === "restore")
+        return (
+          <button key={id} type="button" value={id} className={`${hide?"hidden":""} border-1 border-gray-400 cursor-pointer flex gap-3 items-center p-3 rounded-md hover:bg-neutral-100 dark:border-slate-800 dark:hover:bg-slate-800`} onClick={() => {restoreNote(ctx.activeNote?.id); if(id !== "restore"){dispatch(openDialog(id));}}}>{icon}{btnText}</button>
+        )
+    })
   )
 }
 

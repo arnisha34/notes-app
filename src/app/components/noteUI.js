@@ -30,6 +30,7 @@ export const NoteUI = () => {
       archived: false
     }
     try {
+      
       if(ctx.activeNote&&ctx.activeNote.id){
         const updateRef = doc(db, 'notes', ctx.activeNote.id)
         await updateDoc(updateRef, noteInfo)
@@ -43,10 +44,7 @@ export const NoteUI = () => {
       console.error(err);
     }
 
-    ctx.setTitle('')
-    ctx.setTags([])
-    ctx.setNoteText('')
-    ctx.setDate('')
+    clearNote()
   }
 
   const clearNote = () => {
@@ -63,7 +61,6 @@ export const NoteUI = () => {
       ctx.setNoteText(ctx.activeNote.text || '')
       ctx.setDate(ctx.activeNote.edited || '')
     }
-  
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctx.activeNote])
 

@@ -19,12 +19,12 @@ export const SideNav = () => {
   const ctx = useContext(Context)
 
   return(
-    <div className="border-r-1 border-gray-400 p-5 min-w-[15%]">
+    <div className="border-r-1 border-gray-400 p-5 flex-[0_0_15%]">
       <section id="sideNav">
         <div id="logo" className="cursor-pointer font-[Luxurious_Script] font-bold mb-6 text-5xl" onClick={() => ctx.setActiveView("allNotes")}>
            <Image src={`${colorTheme === "dark"?"/note-logo_dark.svg":"/note-logo.svg"}`} alt="Notes" width={0} height={0} style={{width: '150px', height: 'auto'}} />
         </div>
-        <div className="actions border-b-1 border-gray-400 pb-4">
+        <div className="actions border-b-1 border-gray-400 pb-4 flex flex-col gap-2">
           {
             [
               {
@@ -39,7 +39,7 @@ export const SideNav = () => {
               }
             ].map(({id, btnText, icon}) => {
               return (
-                <button key={id} type="button" className={`${activeBtn === id} ? "bg-neutral-100 dark:bg-slate-800":""} cursor-pointer flex gap-2 hover:bg-neutral-100 items-center p-3 rounded-lg relative dark:text-white dark:hover:bg-slate-800 w-full group`} onClick={() => {handleClick(id); ctx.setActiveView(id);}}>{icon} {btnText} <ChevronRightIcon className={`${activeBtn === id ? "absolute top-[50%] right-0 translate-[-50%] stroke-3 w-4":"hidden"}`} /></button>
+                <button key={id} type="button" className={`${activeBtn === id ? "bg-neutral-100 dark:bg-slate-800":""} cursor-pointer flex gap-2 hover:bg-neutral-100 items-center p-3 rounded-lg relative dark:text-white dark:hover:bg-slate-800 w-full group`} onClick={() => {handleClick(id); ctx.setActiveView(id);}}>{icon} {btnText} <ChevronRightIcon className={`${activeBtn === id ? "absolute top-[50%] right-0 translate-[-50%] stroke-3 w-4":"hidden"}`} /></button>
               )
             })
           }   
