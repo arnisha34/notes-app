@@ -8,6 +8,8 @@ import { addNote, updateNote } from '@/store/noteSlice'
 import { Context } from "../context/context"
 import { ClockIcon } from "@heroicons/react/24/outline"
 
+import { toast } from 'react-hot-toast'
+
 export const NoteUI = () => {
 
   const ctx = useContext(Context)
@@ -35,16 +37,20 @@ export const NoteUI = () => {
         const updateRef = doc(db, 'notes', ctx.activeNote.id)
         await updateDoc(updateRef, noteInfo)
         dispatch(updateNote({id: ctx.activeNote.id, ...noteInfo}))
+        toast.success('Note updated successfully!', {
+          id: 'updateNote',
+        })
       }else{
         const noteRef = await addDoc(collection(db, 'notes'), noteInfo)
         dispatch(addNote({ id: noteRef.id, ...noteInfo }))
+        toast.success('Note saved successfully!', {
+          id: 'saveNote',
+        })
       }
 
     } catch (err) {
       console.error(err);
     }
-
-    clearNote()
   }
 
   const clearNote = () => {

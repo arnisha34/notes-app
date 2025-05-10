@@ -12,6 +12,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { login, logout } from "@/store/authSlice";
 import { getNotes } from '@/store/noteSlice'
 import { Context } from "@/app/context/context"
+import { Toaster } from 'react-hot-toast';
 
 export default function Home() {
 
@@ -25,6 +26,8 @@ export default function Home() {
   const [systemPrefersDark, setSystemPrefersDark] = useState(false);
   const [tags, setTags] = useState([])
   const [title, setTitle] = useState('')
+
+
 
 
   const fontTheme = useSelector(state => state.theme.fontTheme);
@@ -74,14 +77,15 @@ export default function Home() {
 
   return (
     <Context.Provider value={{activeAllNotes, setActiveAllNotes, activeArchivedNotes, setActiveArchivedNotes, activeModal, setActiveModal, activeView, setActiveView, activeNote, setActiveNote, date, setDate, noteText, setNoteText, tags, setTags, title, setTitle}}>
-      <div className={`${themeClass} ${fontTheme} bg-white dark:bg-slate-950 dark:text-white flex w-full h-full text-md`}>
-        <SideNav />
-        <div className='flex flex-col flex-1'>
-          <Navbar />
-          {activeView === "settings"? <Settings />:<CreateNote />}
+      <Toaster position="top-center" toastOptions={{duration: 1500}}></Toaster>
+        <div className={`${themeClass} ${fontTheme} bg-white dark:bg-slate-950 dark:text-white flex w-full h-full text-md`}>
+          <SideNav />
+          <div className='flex flex-col flex-1'>
+            <Navbar />
+            {activeView === "settings"? <Settings />:<CreateNote />}
+          </div>
+          <Dialog />
         </div>
-        <Dialog />
-      </div>
     </Context.Provider>
   );
 }

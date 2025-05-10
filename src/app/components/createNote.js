@@ -7,6 +7,8 @@ import { useContext, useEffect } from "react"
 import { Context } from "../context/context"
 import { useSelector } from 'react-redux'
 
+import { toast } from 'react-hot-toast'
+
 export const CreateNote = () => {
 
   const getNotes = useSelector(state => state.notes.notes)
@@ -22,6 +24,10 @@ export const CreateNote = () => {
     }
 
     ctx.setActiveNote(newNote)
+
+    toast.success('Note created successfully!', {
+      id: 'newNote',
+    })
 
     if (ctx.activeView === 'allNotes') {
       ctx.setActiveAllNotes(newNote)
@@ -39,6 +45,8 @@ export const CreateNote = () => {
     const activeNote = ctx.activeView === 'archived' ? ctx.activeArchivedNotes : ctx.activeAllNotes
     ctx.setActiveNote(activeNote)
   }, [ctx, ctx.activeView, ctx.activeAllNotes, ctx.activeArchivedNotes])
+
+  console.log(ctx.activeNote)
 
   return(
     <div className="w-full mx-auto">

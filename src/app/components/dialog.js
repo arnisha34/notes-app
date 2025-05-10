@@ -7,6 +7,7 @@ import { deleteNote, deleteAllNotes, updateNote } from '@/store/noteSlice'
 import { useContext } from "react";
 import { Context } from "../context/context";
 
+import { toast } from 'react-hot-toast'
 
 export const Dialog = () => {
 
@@ -22,6 +23,9 @@ export const Dialog = () => {
         archived: true
       })
       dispatch(updateNote({ id: id, archived: true }))
+      toast.success('Note archived successfully!', {
+        id: 'archiveNote',
+      })
     }catch (err){
       console.log(err)
     }
@@ -32,6 +36,9 @@ export const Dialog = () => {
       await deleteDoc(doc(db, "notes", id))
       dispatch(deleteNote({id}))
       ctx.setActiveNote(null)
+      toast.success('Note deleted successfully!', {
+        id: 'deleteNote',
+      })
     }catch (err) {
       console.log(err)
     } 
@@ -51,7 +58,11 @@ export const Dialog = () => {
 
       await batch.commit()
       dispatch(deleteAllNotes())
+      toast.success('All Notes deleted successfully!', {
+        id: 'deleteAllNotes',
+      })
 
+      ctx.setActiveNote(null)
       ctx.setTitle('')
       ctx.setTags([])
       ctx.setDate('')
