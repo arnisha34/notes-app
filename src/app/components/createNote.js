@@ -46,8 +46,6 @@ export const CreateNote = () => {
     ctx.setActiveNote(activeNote)
   }, [ctx, ctx.activeView, ctx.activeAllNotes, ctx.activeArchivedNotes])
 
-  console.log(ctx.activeNote)
-
   return(
     <div className="w-full mx-auto">
       <div id="main-section" className="flex h-screen">

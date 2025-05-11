@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Navbar } from './components/navbar'
 import { SideNav } from './components/sideNav'
@@ -16,6 +16,7 @@ import { Toaster } from 'react-hot-toast';
 
 export default function Home() {
 
+  const [activeBtn, setActiveBtn] = useState('')
   const [activeNote, setActiveNote] = useState(null)
   const [activeModal, setActiveModal] = useState(null)
   const [activeView, setActiveView] = useState("allNotes")
@@ -76,7 +77,7 @@ export default function Home() {
     
 
   return (
-    <Context.Provider value={{activeAllNotes, setActiveAllNotes, activeArchivedNotes, setActiveArchivedNotes, activeModal, setActiveModal, activeView, setActiveView, activeNote, setActiveNote, date, setDate, noteText, setNoteText, tags, setTags, title, setTitle}}>
+    <Context.Provider value={{activeBtn, setActiveBtn, activeAllNotes, setActiveAllNotes, activeArchivedNotes, setActiveArchivedNotes, activeModal, setActiveModal, activeView, setActiveView, activeNote, setActiveNote, date, setDate, noteText, setNoteText, tags, setTags, title, setTitle}}>
       <Toaster position="top-center" toastOptions={{duration: 1500}}></Toaster>
         <div className={`${themeClass} ${fontTheme} bg-white dark:bg-slate-950 dark:text-white flex w-full h-full text-md`}>
           <SideNav />

@@ -1,6 +1,7 @@
 
 import { useContext, useEffect } from "react"
 import { useDispatch } from "react-redux"
+import _ from 'lodash';
 import { NoteTags } from "./noteTags"
 import { db } from '@/config/firebase'
 import { collection, doc, addDoc, updateDoc } from 'firebase/firestore'
@@ -33,7 +34,27 @@ export const NoteUI = () => {
     }
     try {
       
-      if(ctx.activeNote&&ctx.activeNote.id){
+      if(ctx.activeNote&&ctx.activeNote.id){ 
+        
+        const noteUpdated = !_.isEqual(
+          {
+            title: ctx.title,
+            tags: ctx.tags,
+            text: ctx.noteText,
+          },
+          {
+            title: ctx.activeNote?.title,
+            tags: ctx.activeNote?.tags,
+            text: ctx.activeNote?.text,
+          }
+        )
+        
+        if (!noteUpdated) {
+          toast.error('Note not updated!', {
+            id: 'updateNoteError',
+          })
+          return
+        }
         const updateRef = doc(db, 'notes', ctx.activeNote.id)
         await updateDoc(updateRef, noteInfo)
         dispatch(updateNote({id: ctx.activeNote.id, ...noteInfo}))
@@ -47,7 +68,6 @@ export const NoteUI = () => {
           id: 'saveNote',
         })
       }
-
     } catch (err) {
       console.error(err);
     }

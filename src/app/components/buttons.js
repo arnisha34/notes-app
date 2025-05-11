@@ -1,18 +1,16 @@
 'use client'
 import { useContext } from "react"
 import { useRouter } from "next/navigation";
-
+import { useDispatch } from "react-redux"
 import { db } from "@/config/firebase";
 import { auth } from "@/config/firebase"
 import { doc, updateDoc } from "firebase/firestore";
 import { signOut } from "firebase/auth";
-import { useDispatch } from "react-redux"
 import { updateNote } from "@/store/noteSlice";
 import { openDialog } from "@/store/dialogSlice";
 import { logout } from "@/store/authSlice"
-
 import { Context } from "../context/context"
-
+import { toast } from "react-hot-toast";
 import { TbTextSize } from "react-icons/tb";
 import { ArchiveBoxArrowDownIcon, ArchiveBoxXMarkIcon, ArrowRightStartOnRectangleIcon, ArrowPathIcon, ChevronRightIcon, LockClosedIcon, SunIcon, TrashIcon } from "@heroicons/react/24/outline"
 
@@ -29,6 +27,14 @@ import { ArchiveBoxArrowDownIcon, ArchiveBoxXMarkIcon, ArrowRightStartOnRectangl
           archived: false
         })
         dispatch(updateNote({ id: id, archived: false }))
+
+        if (ctx.activeNote?.id === id) {
+          ctx.setActiveNote({ ...ctx.activeNote, archived: false });
+        }
+
+        toast.success('Note restored successfully!', {
+          id: 'restoreNote',
+        })
       }catch (err){
         console.log(err)
       }
@@ -61,7 +67,7 @@ import { ArchiveBoxArrowDownIcon, ArchiveBoxXMarkIcon, ArrowRightStartOnRectangl
         (ctx.activeView === "archived" && id === "archive") ||
         (ctx.activeView === "allNotes" && id === "restore")
         return (
-          <button key={id} type="button" value={id} className={`${hide?"hidden":""} border-1 border-gray-400 cursor-pointer flex gap-3 items-center p-3 rounded-md hover:bg-neutral-100 dark:border-slate-800 dark:hover:bg-slate-800`} onClick={() => {restoreNote(ctx.activeNote?.id); if(id !== "restore"){dispatch(openDialog(id));}}}>{icon}{btnText}</button>
+          <button key={id} type="button" value={id} className={`${hide?"hidden":""} border-1 border-gray-400 cursor-pointer flex gap-3 items-center p-3 rounded-md hover:bg-neutral-100 dark:border-slate-800 dark:hover:bg-slate-800`} onClick={() => {if(id==="restore"){restoreNote(ctx.activeNote?.id)}else{dispatch(openDialog(id))}}}>{icon}{btnText}</button>
         )
     })
   )
